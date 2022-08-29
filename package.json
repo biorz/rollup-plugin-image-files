@@ -1,6 +1,6 @@
 {
-  "name": "rollup-plugin-images2",
-  "version": "1.0.0",
+  "name": "rollup-plugin-image-file",
+  "version": "1.0.2",
   "description": "fork form rollup-plugin-image-files, and add some features",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,6 @@
     "prettier:fix": "prettier --check **/*.js",
     "test": "jest",
     "test:coverage": "jest --coverage"
-
   },
   "repository": {
     "type": "git",

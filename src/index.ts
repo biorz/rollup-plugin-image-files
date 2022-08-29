@@ -1,9 +1,9 @@
 import { readFileSync,  } from 'fs';
-import { basename } from 'path';
+import { basename, extname } from 'path';
 import { createFilter } from 'rollup-pluginutils';
 import { Plugin } from 'rollup'
 
-const defaultExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
+const defaultExtensions = [/\.jpg/, /\.jpeg/, /\.png/, /\.gif/, /\.svg/];
 
 interface Options {
 	extensions?: Array<string | RegExp>,
@@ -13,8 +13,7 @@ interface Options {
 
 export default function image(options: Options = {}) : Plugin {
 	const extensions = options.extensions || defaultExtensions;
-	const includes = extensions.map(e => new RegExp(e));
-	const filter = createFilter(options.include || includes, options.exclude);
+	const filter = createFilter(options.include, options.exclude);
 	let images: string[] = [];
 
 	return {
@@ -22,6 +21,11 @@ export default function image(options: Options = {}) : Plugin {
 		load(id: string) {
 			if ('string' !== typeof id || !filter(id)) {
 				return null;
+			}
+
+			const ext = extname(id)
+			if (!extensions.some(item => typeof item === 'string' ? (item === ext) : item.test(ext))) {
+				return null
 			}
 
 			if (images.indexOf(id) < 0) {

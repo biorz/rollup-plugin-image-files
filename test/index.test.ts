@@ -1,4 +1,4 @@
-import RollupPluginsImages from '../dist';
+import RollupPluginsImages from '../src';
 import { rollup } from 'rollup'
 
 const build = async (inputOptions, outputOptions) => {
