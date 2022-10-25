@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-image-file",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "fork form rollup-plugin-image-files, and add some features",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

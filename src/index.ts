@@ -14,7 +14,6 @@ interface Options {
 export default function image(options: Options = {}) : Plugin {
 	const extensions = options.extensions || defaultExtensions;
 	const filter = createFilter(options.include, options.exclude);
-	let images: string[] = [];
 
 	return {
 		name: 'image-file',
@@ -28,16 +27,12 @@ export default function image(options: Options = {}) : Plugin {
 				return null
 			}
 
-			if (images.indexOf(id) < 0) {
-				images.push(id);
-
-				const referenceId = this.emitFile({
-          type: 'asset',
-          name: basename(id),
-          source: readFileSync(id)
-        });
-				return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
-			}
+			const referenceId = this.emitFile({
+				type: 'asset',
+				name: basename(id),
+				source: readFileSync(id)
+			});
+			return `export default import.meta.ROLLUP_FILE_URL_${referenceId};`;
 		},
 		resolveFileUrl ({ fileName, relativePath }) {
 			if ('string' !== typeof fileName || !filter(fileName)) {
